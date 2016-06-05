@@ -3,3 +3,28 @@ Find:
 find . - type f -exec grep -l "test to search" {} \; (search something in all the files)
 find . - name pom.xml -exec sed -n "/text1/,/text2/p" {} \; (print text between two words)
 perl -p -i -e 's/original_text/text_to_replace_with/g' `find . -name pom.xml` (replace text in all the files)
+find -name "*.jar" | xargs grep <file name> (find files in a collection of jars)
+
+
+How to disk and directory sizes
+------------------------------
+du -sh <directory_name> (find the size of the directory)
+df -h (find the size of the disk)
+
+
+AWK:
+---------------
+awk '{print NF}' <filename> (prints no of fields seperated by file seperater per line)
+awk '/<regular expr>/{print $0}' <filename> (prints line which matches the regular expressions)
+awk 'NF == 6 {print $0}' <filename> (print line containing exactly 6 character)
+-- Field seperator can be any regular expression
+awk '{$2="TWO";print}' <filename> (replaces 2nd field in every line with TWO)
+
+Regex Greediness:
+---------------
+<.+> matches <i> italic text </i>
+<[^>]+> matches first <i> in the above text
+
+How to find file permission of a file
+---------------
+stat -c %a <filename>
