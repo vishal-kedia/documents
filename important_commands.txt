@@ -19,6 +19,7 @@ awk '/<regular expr>/{print $0}' <filename> (prints line which matches the regul
 awk 'NF == 6 {print $0}' <filename> (print line containing exactly 6 character)
 -- Field seperator can be any regular expression
 awk '{$2="TWO";print}' <filename> (replaces 2nd field in every line with TWO)
+awk -F"|" -v sq="'" '{print "("sq$2sq")"}' <filename> (how to delcare single quote as variable and use for printing)
 
 Regex Greediness:
 ---------------
