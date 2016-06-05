@@ -1,0 +1,5 @@
+Find:
+---------------
+find . - type f -exec grep -l "test to search" {} \; (search something in all the files)
+find . - name pom.xml -exec sed -n "/text1/,/text2/p" {} \; (print text between two words)
+perl -p -i -e 's/original_text/text_to_replace_with/g' `find . -name pom.xml` (replace text in all the files)
