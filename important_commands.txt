@@ -29,3 +29,6 @@ Regex Greediness:
 How to find file permission of a file
 ---------------
 stat -c %a <filename>
+
+Website Bookmarks:
+http://www.grymoire.com/Unix/index.html
