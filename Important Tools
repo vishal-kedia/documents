@@ -1,0 +1,4 @@
+-- To reduce the jpeg file size by 50 %
+
+brew install jpegoptim
+jpegoptim -m50 photo.jpg
