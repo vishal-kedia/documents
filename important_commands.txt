@@ -32,3 +32,7 @@ stat -c %a <filename>
 
 Website Bookmarks:
 http://www.grymoire.com/Unix/index.html
+
+How to purge the local repo:
+---------------------------
+mvn dependency:purge-local-repository
