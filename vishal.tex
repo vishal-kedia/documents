@@ -1,0 +1,154 @@
+%
+% LaTeX source of my resume
+% =========================
+%
+% Heavily commented to to fit even LaTeX beginners (hopefully).
+%
+% See the `README.md` file for more info.
+%
+% This file is licensed under the CC-NC-ND Creative Commons license.
+%
+
+
+% Start a document with the here given default font size and paper size.
+\documentclass[10pt,a4paper]{article}
+
+% Set the page margins.
+\usepackage[a4paper,margin=0.75in]{geometry}
+
+% Setup the language.
+\usepackage[english]{babel}
+\hyphenation{Some-long-word}
+
+% Makes resume-specific commands available.
+\usepackage{resume}
+
+
+
+
+\begin{document}  % begin the content of the document
+\sloppy  % this to relax whitespacing in favour of straight margins
+
+
+% title on top of the document
+\maintitle{Vishal Kedia}{March 25, 1985}{Last update on \today}
+
+\nobreakvspace{0.3em}  % add some page break averse vertical spacing
+
+% \noindent prevents paragraph's first lines from indenting
+% \mbox is used to obfuscate the email address
+% \sbull is a spaced bullet
+% \href well..
+% \\ breaks the line into a new paragraph
+\noindent\href{mailto:vishalkedia119@hotmail.com}{vishalkedia119\mbox{}@\mbox{}hotmail.com}\sbull
+\textsmaller{+}91-7702912226\sbull
+\href{http://in.linkedin.com/in/vishalkedia119}{in.linkedin.com/in/vishalkedia119/}
+\\
+Bangalore\sbull
+India
+
+\spacedhrule{0.9em}{-0.4em}  % a horizontal line with some vertical spacing before and after
+
+\roottitle{Summary}  % a root section title
+
+\vspace{-1.3em}  % some vertical spacing
+\begin{multicols}{2}  % open a multicolumn environment
+\noindent
+During the span of my short career, I have been opportunate enough to be exposed over a range of technologies and products, below are the projects on which I have worked in the span of last two years.
+\\
+\\
+\textbf{Intelligent Reverse Proxy} -  This project was done in order to take out cross cutting concerns from different projects like authentication, rate limiting, circuit breaker, routing and API blacklisting. In order to achieve this custom filters were build on the top of existing opensource project named `openrepose` which is in java. This project was done by me independently.
+\\
+\\
+\textbf{Paydesk (Bill Payment Service)} -  This project implements the multi-tenant billing and payment retrieval, via Standing instructions, over credit cards, bank accounts. It has integration with Billdesk (for credit card SI). This project is implemented using java tech stack. This project was done by me independently
+\\
+\\
+\textbf{Reporting Service} - This project implements invoice/bill  generation, admin reports, user reports etc and several reconciliation jobs. This project was implemented using java stack. This project was done by me independently.
+\\
+\\
+\textbf{Closed Wallet Service} - This project implements multi-tenant closed wallet service. This project is implemented using java stack. This project was done independently by me.
+\\
+\\
+\textbf{Corporate Workflow Service} - This project is a web of multiple microservice which caters the complete `Ola Corporate` product which includes a website hosted in ruby for admins and a orchestrator layer which talks to micro-services to achieve different website workflows. The downstream micro services layer is implemented in java stack. I have contributed heavily in this project.
+
+
+\end{multicols}
+
+
+\spacedhrule{0em}{-0.4em}
+
+\roottitle{Experience}
+
+\headedsection  % sets the header for the section and includes any subsections
+  {\href{http://www.manit.ac.in}{Maulana Azad National Institute Of Technology}}
+  {\textsc{Bhopal, India}} {%
+  \headedsubsection
+    {Research Scholar}
+    {July \apo10 -- July \apo12}
+    {\bodytext{MANIT is a premier institute for science and engineering, Where I discovered and nurtured my professional and research skills by working among seasoned and professional researches.}}
+}
+
+\headedsection  % sets the header for the section and includes any subsections
+  {\href{http://www.ivycomptech.com}{Ivycomptech}}
+  {\textsc{Hyderabad, India}} {%
+  \headedsubsection
+    {Trainee Engineer}
+    {June \apo12 -- November \apo12}
+    {\bodytext{Worked as trainee to understand the domain of the business and technoloies at ivycomptech along with work ethics and corporate culture.}}
+    \headedsubsection
+    {Software Engineer - SDET}
+    {November \apo12 -- September \apo14}
+    {\bodytext{Worked as team player, responsible for writing variety of test automation suites. Development of testing framework, managing environment setups,strategic planning, encouraging and helping other developers for best practices in testing, exploring different horizons for different usecases ranging from both synchronous to asynchronous applications.
+}}
+}
+\headedsection  % sets the header for the section and includes any subsections
+{\href{http://www.olacabs.com}{Olacabs}}
+  {\textsc{Bangalore, India}} {%
+\headedsubsection
+    {Software Development Engineer - II}
+    {January \apo15 -- Present}
+    {\bodytext{Working as team player, responsible for writing scalable code for backend components.
+}}
+}
+
+
+
+\vspace{-0.2em}
+\begin{center}
+  \emph{\small Please refer to my \href{http://in.linkedin.com/in/vishalkedia119}{Linked-in profile} for a more info on skills and recomendations.}
+\end{center}
+
+
+\spacedhrule{-0.2em}{-0.4em}
+
+\roottitle{Education}
+
+\headedsection
+  {\href{http://www.manit.ac.in}{Maulana Azad National Institute Of Technology}}
+  {\textsc{Bhopal, India}} {%
+  \headedsubsection
+    {Master Of Technology in Remote Sensing \& GIS}
+    {2010 -- 2012}
+    {\bodytext{Focussed on application of Remote sensing GIS in different fields like Transportation, Natural Resource Management, Agriculture, etc.}}
+}
+
+\headedsection
+  {\href{http://www.rgpv.ac.in}{Rajeev Gandhi Proudyogiki Vishwavidyalaya}}
+  {\textsc{Bhopal, India}} {%
+  \headedsubsection
+    {Bachelor Of Engineering in Computer Science \& Engineering}
+    {2006 -- 2010} {}
+}
+
+
+
+\spacedhrule{0.5em}{-0.4em}
+
+\roottitle{Interests}
+
+\inlineheadsection
+  {Non-exhaustive:}
+  {Loves to cook ocassionally,music,history, open source, philosophy, software engineering (methodologies), travel, etc.}
+
+
+\end{document}
