@@ -1,0 +1,136 @@
+\documentclass[10pt,a4paper,draft]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[final]{listings}
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\author{Vishal Kedia}
+\usepackage{geometry}
+\geometry{margin=2cm}
+\title{Dynamic Programing}
+\begin{document}
+\maketitle
+\section{What is Dynamic Programming?}
+\emph{Dynamic Programming} is a technique to solve optimization problems which may have multiple solutions, and the way it works is very similar to that of the divide and conquer technique where in we first solve the sub-problems first and then combine the solutions of those sub problems to find the solution for the actual problem. 
+
+When applying a \emph{Dynamic Programming} to a problem we mainly follow basic following steps.
+
+\begin{enumerate}
+\item Characterize the structure of an optimal solution.
+\item Recursively define the value of an optimal solution.
+\item Compute the value of an \emph{optimal solution}. Typically in a bottom up fashion. 
+\item Construct an \emph{optimal solution} from computed information.
+\end{enumerate}
+\section{Elements of Dynamic Programming}
+\subsection{Optimal Substructure}
+The first step in solving an problem by \emph{Dynamic Programming} is to characterize the structure of an \textit{optimal solution}. And we build an optimal solution to the problem from optimal solutions to the subproblems.\par You will find the following pattern in determining the optimal substructure:
+\begin{enumerate}
+\item You show that solution to the problem consists of making a choice, such as choosing an initial cut in the rod.
+\item You suppose that for a given problem, you are given the choice that leads to an optimal solution. You do not concern yourself yet with how to determine this choice. You just assume that it has been given to you.
+\item Given this choice, you determine which subproblems ensue and how to best characterize the resulting space of subproblems.
+\end{enumerate}\par
+To characterize the space of the subproblems, a good rule of thumb says to try to keep the space as simple as possible and then expand it as necessary. For example, the space of subproblems that we considered for the \emph{rod cutting problem} contained the problems of optimally cutting a rod of length $i \forall i \in [1..n]$.
+\par
+Optimal substructure varies across problem domains in two ways:
+\begin{enumerate}
+\item How many subproblems an optimal solution to the original problem uses, and
+\item How many choices we have in determining which subproblem(s) to use in an optimal solution.
+\end{enumerate}
+\section{Sample Dynamic Programming Problems.}
+\subsection{Rod Cutting Problem.}
+\textbf{Problem Statment -} Given a \emph{rod} of length \emph{n} inches and a table of prices $p_i$ for $i = 1,2,.....,n$, determine the maximum revenue $r_n$ obtainable by cutting up the rod and selling pieces.
+\\[12pt]
+\textbf{Discussion -} We can cut the rod in $2^{n-1}$ different ways, since we have independent choise of either cutting or not cutting, at distance \textit{i} inches from the left hand. If the optimal solution cuts the rod into $k$ pieces, for some $1 \geq k \geq n$ then the optimal decomposition will be
+\begin{center}
+$n = i_1+i_2+...+i_k$
+\end{center}
+of the rod into pieces of the length $i_1,i_2,..,i_k$ provides maximum corresponding revenue
+\begin{center}
+$r_n = p_{i_1}+p_{i_2}+...+p_{i_k}$
+\end{center}
+more generally we can frame the values $r_n$ for $n \geq 1$ in terms of optimal revenues from the shorter rods.
+\begin{center}
+$r_n = max(p_n,r_1+r_{n-1},r_2+r_{n-2},...,r_{n-1}+r_1)$
+\end{center}
+Note that here in order to find the optimal solution we are exploring all the choices for making the first cut, however at the time of doing so we are assuming that we know left hand optimal solution for the left hand side of the rod and the right hand side of the rod after makng the first cut, and then choosing the best solution out of all these solutions. Hence we say that \emph{Rod cutting problem} exhibts \textbf{\emph{Optimal Substructure:}} ie. optimal solution to a problem incorporates optimal solutions to related subproblems, which we may solve independently.
+\par
+In a related but slightly simpler way to arrange a recursive structure of the \emph{Rod Cutting Problem}, we view a decomposition as consistiong of a first piece of length $i$ cut off the left hand end, and then a right hand remainder of length $n-1$. Only the remainder and not the first piece, may be further divided.
+\begin{center}
+$r_n = \max\limits_{1 \geq i \geq n}(p_i+r_{n-1})$
+\end{center}
+\subsection{0/1 Knapsack Problem}
+\textbf{Problem statment -} Given a list of $n$ items with weights $w_i$ and price $p_i$ for the $i^{th}$ item in the list, and a knapsack of total weight capacity $W$ is given. Determine the maximum value that can be carried at a time in the knapsack.
+\\[12pt]
+\textbf{Discussion -} We can choose the items in $k$ ways where $k \leq 2^{n-1}$. A solution can be obtained by making the sequence of decision on the items $i_1,i_2,...,i_n$. Suppose we start from the last item then in that case we have two choices that we can make for item $i_n$, which will leave in two possible states, ie. knapsack of capacity $W$ and $i_1,i_2,...,i_{n-1}$ items to take further decision on, or knapsack of capacity $W-w_n$ and $i_1,i_2,...,i_{n-1}$ items to take further decision on. Here we see that making a choice leads us to the smaller subprobles of similar characteristic and hence we can view the decomposition for the optimal solution as
+\begin{center}
+$f_n(W) = \max(f_{n-1}(W),f_{n-1}(W-w_n))$
+\end{center}
+\subsection{Kadane's Algorithm - Maximum subarray problem}
+\textbf{Problem Statement -} Given an array $A = {a_1,a_2,...,a_n}$ of integers (consisting of both negative and positive values), we need to find the contiguous subarray $A_{i,j}$ where $0 \geq i \geq j \geq n$ such that
+\begin{center}
+$S_{i,j} = \sum\limits_{k=i}^ja_k$
+\end{center}
+is maximum for all possible subarrays.
+\\[12pt]
+\textbf{Discussion -} Suppose we are given maximum for subarray ending at $a_i$ element with sum $S_i$, then what shall be the maximum sum for the subarray ending at element $a_{i+1}$, if we think about it, we see that adding the next element either increases the sum or decreases the sum, so basically we have two choices here either to include it or not, which actually leads us into two states ie. max sum is either $S_{i+1} = S_i + a_{i+1}$ or $S_{i+1} = a_{i+1}$. Here we can say that if the sum increases then we include the element in the subarray and proceed for the next index, or we start afresh the new subarray with only next element in the array and proceed to the next index. So we can view the decomposition as
+\begin{center}
+$S_i = \max(S_{i-1}+ a_i,a_i)$
+\end{center}
+Observing the above deduction we can also say that we start the process at index $i=0$ and $S_{-1} = -\infty$ uptill $i = n$ then we shall have our optimal solution $S_n$.
+\subsection{Change makning problem - 1}
+\textbf{Problem Statement -} A person has to give amount $A$ to another person and he has money in denominations $D = \{d_1,d_2,...,d_k\}$ with infinite count, find the least no of change in which he may pay his due.
+\\[12pt]
+\textbf{Discussion -} Change making problem is very similar to the knapsack problem, consider the amount to be paid as analogous to the capacity of the knapsack, but the availability of the coins as opposed to the items in knapsack problem never exhausts, and here optimization is in the terms of no of the coins required instead of the maximum value of the items in the knapsack. So in a similar way as that of knapsack, an solution may be obtained by making a sequence of decision on denominations $d_1,d_2,...,d_k$, Suppose we start from the last denominations in that case we have two choices that we can make for the $d_k$, which will leave in two possible states ie. optimal solution either includes atleast one unit or no unit of the $d_k$ denomination. And the minimum of the two subproblems give us the optimal solution. So we can view the decomposition as
+\begin{center}
+$f_k(A)=\min(f_k(A-d_k)+1,f_{k-1}(A))$
+\end{center}
+\begin{lstlisting}[language=Java]
+	public static int getMinChange(int[] coins, int amt) {
+		return getMinChangeInternal(coins,amt,0,coins.length-1);
+	}
+
+	private static int getMinChangeInternal(int[] coins, int n, int count,int k) {
+		if(n < 0 || k < 0){
+			return Integer.MAX_VALUE;//to signify no solution
+		}else if(n==0){
+			return count;
+		}else{
+			return Math.min(getMinChangeInternal(coins,n-coins[k],count+1,k), getMinChangeInternal(coins,n,count,k-1));
+		}
+	}
+\end{lstlisting}
+\subsection{Change making problem - 2}
+\textbf{Problem Statement -} A person has to give amount $A$ to another person and he has money in denominations $D = \{d_1,d_2,...,d_k\}$ with infinite count, find in how many ways he may make the change to pay his due.
+\\[12pt]
+\textbf{Discussion -} The only difference between the previous problem statement and this one is instead of finding least count solution we are interested in the total no possible solutions, so as we have seen earlier an solution may be obtained by making a sequence of decision on denominations $d_1,d_2,...,d_k$, Suppose we start from the last denominations in that case we have two choices that we can make for the $d_k$, ie. either it contributes to the change or not so the solution that we are interested in will include the sum of the solutions of both subproblems as a result of the two possible decision.
+\begin{center}
+$f_k(A)=f_k(A-d_k) + f_{k-1}(A)$
+\end{center}
+\begin{lstlisting}
+	public static int getTotalPossibleSolution(int[] coins, int amt) {
+		return getTotalPossibleSolutionInternal(coins,amt,coins.length-1);
+	}
+
+	private static int getTotalPossibleSolutionInternal(int[] coins, int n,int k) {
+		if(n < 0 || k < 0){
+			return 0;
+		}else if(n==0){
+			return 1;
+		}else{
+			return getTotalPossibleSolutionInternal(coins,n-coins[k],k) + getTotalPossibleSolutionInternal(coins,n,k-1);
+		}
+	}
+\end{lstlisting}
+\end{document}
