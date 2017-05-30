@@ -133,14 +133,6 @@ $f_k(A)=f_k(A-d_k) + f_{k-1}(A)$
 		}
 	}
 \end{lstlisting}
-\subsection{Longest Increasing Subsequences Problem} 
-\textbf{Problem Statement -} Given an array of integers, find the longest increasing subsequence in the array. for example say given array is ${50, 3, 10, 7, 40, 80}$ then the longest increasing subsequence is ${3, 7, 40, 80}$.
-\\[12pt]
-\textbf{Discussion -} In the above problem we can observe that its little similar to the maximum subarray problem, so following the kadane's logic lets assume we have the optimum solution at ending at element $a_i$, then what shall be the longest subsequence ending at element $a_{i+1}$, if we think about it then we can see that if we include the element in the solution in that case solution increases by count $1$ but there is a catch which is if $a_{i+1}$ is in the solution then all the elements befor that needs to be smaller than $a_{i+1}$. So we can view the decomposition as
-\begin{center}
-$f_A(a_1,a_2,...,a_n) = \max(f_A(a_1,a_2...a_{n-1}),1+f_B(b_1,b_2,...,b_k))$ 
-\end{center}
-where $B \subset A$ end $b_i \leq a_n$ where $i \in [1,k]$. This approach gives $O(n^2)$ time complexity. There are better solutions for this problem with complexity of order $O(nlogn)$
 \subsection{Longest Common Subsequence Problem}
 \textbf{Problem Statement -} In the \emph{Longest Common Subsequence} problem we are given two sequences $X=\{x_1,x_2,...,x_m\}$ and $Y=\{y_1,y_2,...,y_n\}$ and wish to find a maximum length common subsequence of $X$ and $Y$.
 \\[12pt]
@@ -150,4 +142,41 @@ where $B \subset A$ end $b_i \leq a_n$ where $i \in [1,k]$. This approach gives 
 \item if $x_m \neq y_n$, then $z_k \neq x_m$ implies that $Z$ is an LCS of $X_{m-1}$ and $Y$.
 \item if $x_m \neq y_n$, then $z_k \neq y_n$ implies that $Z$ is an LCS of $X$ and $Y_{n-1}$.
 \end{enumerate}
+\subsection{Longest Increasing Subsequences Problem} 
+\textbf{Problem Statement -} Given an array of integers, find the longest increasing subsequence in the array. for example say given array is ${50, 3, 10, 7, 40, 80}$ then the longest increasing subsequence is ${3, 7, 40, 80}$.
+\\[12pt]
+\textbf{Discussion -} In the above problem we can observe that its little similar to the maximum subarray problem, so following the kadane's logic lets assume we have the optimum solution at ending at element $a_i$, then what shall be the longest subsequence ending at element $a_{i+1}$, if we think about it then we can see that if we include the element in the solution in that case solution increases by count $1$ but there is a catch which is if $a_{i+1}$ is in the solution then all the elements befor that needs to be smaller than $a_{i+1}$. So we can view the decomposition as
+\begin{center}
+$f_A(a_1,a_2,...,a_n) = \max(f_A(a_1,a_2...a_{n-1}),1+f_B(b_1,b_2,...,b_k))$ 
+\end{center}
+where $B \subset A$ end $b_i \leq a_n$ where $i \in [1,k]$. This approach gives $O(n^2)$ time complexity.
+\\[12pt]
+This problem can also be solved in order of $O(nlogn)$, in order to solve this we will use the list data-structure with nodes having two data points $(x,c)$, where $x$ represents the last element in the subsequence and $c$ represents the corresponding length of the subsequence, and each node in the list represents a subsequence. Now lets start with the first element in the sequence, we can see that there is no existing subsequence in the list, hence we add the first subsequence in the list with one element so list becomes
+\begin{center}
+$(50,1)$
+\end{center}
+now consider the second element $3$, we can see that the $3$ is smaller than the last element of the only subsequence in the list so it will not contribute to the existing subsequence in the list, instead it will form its own subsequence ending at element $3$, hence list may become
+\begin{center}
+$(50,1) \rightarrow (3,1)$
+\end{center}
+now there are three possiblility with the next element, it can be either bigger than $50$ then it will be bigger than $3$ also as $3 \leq 50$, hence in this case length for both the sequences, if the next element is between $3$ and $50$ then in that case length of the second sequence increases by one compared to first subsequence, and in the third case when the next element is smaller than both the elements in that case it doesn't contributes to either of the subsequences, so we can conclude that whatever be the next element best solution lies with the second subsequence only, hence instead of adding the second subsequence in the list we shall replace it with the new subsequence as  
+\begin{center}
+$(50,1) \overset{3}{\Longrightarrow} (3,1)$
+\end{center}
+now if we consider the next element $10$ then we see that it contributes to the existing subsequence in the list hence the list becomes
+\begin{center}
+$(3,1) \overset{10}{\Longrightarrow} (10,2)$
+\end{center}
+when we proceed to the next element $7$, then we see that it is smaller than the last element in the subsequence, so as we have done earlier where we replaced the subsequence ending with bigger element to the subsequence ending with the smaller one, we can't do the same in this case because if the element is inbetween the two elements it will definitely contribute to the subsequence ending with the lower element but still in that case length becomes equals only. So we can conclude that will all possiblility of next element best solutions can be either of the solutions so in this case we will have to mantain both the subsequences
+\begin{center}
+$(10,2) \overset{7}{\Longrightarrow} (10,2) \rightarrow (7,1)$
+\end{center}
+now lets proceed to the next element $40$ which happens to be the greater than the ending element in both the subsequences in the list, hence will contribute to both the lists and becomes the last element of both the subsequences, but with different sizes, hence we don't need to keep both the subsequences, we can just keep that subsequence which is bigger hence
+\begin{center}
+$(10,2) \rightarrow (7,1) \overset{40}{\Longrightarrow} (40,3)$
+\end{center}
+now lets proceed to the next element $80$, and we see that it is greater than the last element of the subsequence hence contributes to the existing subsequence in the list
+\begin{center}
+$(40,3) \overset{80}{\Longrightarrow} (80,4)$
+\end{center}
 \end{document}
