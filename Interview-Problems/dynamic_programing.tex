@@ -179,4 +179,13 @@ now lets proceed to the next element $80$, and we see that it is greater than th
 \begin{center}
 $(40,3) \overset{80}{\Longrightarrow} (80,4)$
 \end{center}
+\subsection{Longest Palindrome Subsequence Problem}
+\textbf{Problem Statement -} Given an efficient algorithm to find the longest \emph{palindrome} that is the subsequence of a given input string.
+\\[12pt]
+\textbf{Discussion -} If we think about it, this problem is very similar to \emph{Longest Common Subsequence} problem, Let say we are given a sequence $X = \{x_1,x_2,...,x_n\}$, then at any given situation we have a subsequence $X_{i,j} = \{x_i,x_{i+1},....x_j\}$ such that $0 \leq i \leq j \leq n$, and $Z = \{z_1,z_2,...,z_p,...,z_{k-1},z_k\}$ be the \emph{Longest Pandrome Subsequence} then we have following conditions
+\begin{enumerate}
+\item if $x_1=x_n$, then $z_k=z_1=x_n=x_1$, and $Z_{2,k-1}$ is the solution of $X_{2,n-1}$ 
+\item if $x_1 \neq x_n$, then $(z_k = z_1) \neq x_n$ implies that $Z$ is the solution of $X_{1,n-1}$ 
+\item if $x_1 \neq x_n$, then $(z_k = z_1) \neq x_1$ implies that $Z$ is the solution of $X_{2,n}$ 
+\end{enumerate}
 \end{document}
