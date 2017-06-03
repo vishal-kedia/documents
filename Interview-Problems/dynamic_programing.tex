@@ -188,4 +188,13 @@ $(40,3) \overset{80}{\Longrightarrow} (80,4)$
 \item if $x_1 \neq x_n$, then $(z_k = z_1) \neq x_n$ implies that $Z$ is the solution of $X_{1,n-1}$ 
 \item if $x_1 \neq x_n$, then $(z_k = z_1) \neq x_1$ implies that $Z$ is the solution of $X_{2,n}$ 
 \end{enumerate}
+\subsection{Printing Neatly Problem}
+\textbf{Problem Statement -} Consider the problem of neatly printing a paragraph with monospaced font (all charachters having the same width) on a printer. The input text is the sequence of $n$ words of length $l_1,l_2,...,l_n$ measured in characters. We want to print this paragraph neatly on a number of lines that hold a maximum of $M$ characters each. Our criterion of \emph{neatness} is as follows. If a given line contains words $i$ through $j$, where $i \leq j$, and we leave exactly one space between words, the number of extra space characters between the lines is
+\begin{center}
+$p_{i,j}=M-j+i-\sum\limits_{k=i}^jl_k$
+\end{center}
+\textbf{Discussion -} Suppose that we say that the minimum cost is $f(i,j)$ for accomodating the words from $i$ through $j$. Then decision that we have to take is how many words are going to be present in the first row, in that case our problem in decomposed view looks like
+\begin{center}
+$f(1,n)=\min(p_{1,k-1}+f(k,n),p_{1,k}+f(k+1,n))$ where $1 < k \leq n : p_{1,k} \geq 0$
+\end{center}
 \end{document}
