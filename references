@@ -1,3 +1,5 @@
 Algorithm:
   - http://www.cs.yale.edu/homes/aspnes/classes/223/notes.html
   - http://web.engr.illinois.edu/~jeffe/teaching/algorithms/
+JAX-RS:
+  - https://dennis-xlc.gitbooks.io/restful-java-with-jax-rs-2-0-2rd-edition/en/part1/chapter12/per_jax_rs_method_bindings.html
