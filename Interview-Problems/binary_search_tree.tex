@@ -1,0 +1,280 @@
+\documentclass[12pt,a4paper,draft]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{color}
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+\usepackage[final]{listings}
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3,
+  commentstyle=\color{pgreen},
+  keywordstyle=\color{pblue},
+  stringstyle=\color{pred}
+}
+\author{Vishal Kedia}
+\usepackage{geometry}
+\geometry{margin=2cm}
+\title{Binary Search Trees}
+\begin{document}
+\maketitle
+\section{Introduction}
+The search tree data structures supports many dynamic set operations as mentioned in the API. Hence search trees can be used both as \emph{Dictionaries} and \emph{Priority Queues}
+\\
+\\
+\textbf{Binary Search Tree Property :} Let $x$ be node in a binary search tree. If $y$ is a node in the left sub-tree of $x$, then $y.key \leq x.key$. If $y$ is the node on the right sub-tree of $x$, then $y.key \leq x.key$.
+\\
+\\
+\begin{lstlisting}[caption={Binary Search Tree API}]
+public class BST<Key extends Comparable<Key>, Value> {
+	private Node root;
+
+	private class Node {
+		private Key key;
+		private Value value;
+		private Node left, right;
+		private int N;
+
+		public Node(Key key, Value value, int N) {
+			this.key = key;
+			this.value = value;
+			this.N = N;
+		}
+	}
+	//public void put(Key key, Value value) - Insert operation
+	//public Value get(Key key) - Search operation
+	//public Key min() - Find the smallest key
+	//public Key max() - Find the biggest key
+	//public Key predecessor(Key key) - Find the predecessor of the given node
+	//public Key successor(Key key) - Find the successor of the given node
+	//public void deleteMin() - Delete the smallest key
+	//public void deleteMax() - Delete the biggest key
+	//public void delete(Key k) - Delete the given key
+	//public int size() - Gets the total no of nodes in the given tree
+}
+\end{lstlisting}
+\pagebreak
+\section{Insert in BST}
+When inserting a new \texttt{(key,value)} pair in \emph{Binary Search Tree} rooted at $x$, There can be three possible scenarios possible, one where tree is empty, second where tree is not empty but already contains the key and the third scenario where tree is not empty and doesn't contain the any node with the given key.
+\par
+If the tree is empty then in that case new node with the given key value is returned as root element of the tree. If the Tree is not empty and there is already one node present in the tree with the given key then in that case value of the node in the tree is replaced with new value provided, and if tree is neither empty not contains any node with the provided key then in that case new node is created linked to one of the leaf nodes of in the given tree such that binary search tree property is not violated.
+
+\begin{lstlisting}[caption={Insert Operation}]
+private Node root;
+
+public void put(Key key, Value value){
+	root = put(root,key,value);
+}
+
+private Node put(Node x,Key key,Value value){
+	if(Objects.isNull(x)){
+		return new Node(key,value,1);
+	}else{
+		int cmp = key.compareTo(x.key);
+		if(cmp < 0){
+			x.left = put(x.left,key,value);
+		}else if(cmp > 0){
+			x.right = put(x.right,key,value);
+		}else{
+			x.value = value;
+		}
+		x.N = size(x.left) + size(x.right) + 1;
+		return x;
+	}
+}
+\end{lstlisting}
+\pagebreak
+\section{Search in BST}
+When we search any key in the given \emph{Binary Search Tree}, then there can be only three possibilities, fist the tree is empty, second when the tree is empty but key doesn't exist and third where tree is not empty and key is present in the tree.
+
+\begin{lstlisting}[caption={Search Operation}]
+private Node root;
+
+public Value get(Key key){
+	Node node = get(root,key);
+	if(Objects.nonNull(node)){
+		return node.value;
+	}
+	return null;
+}
+
+private Node get(Node x,Key k){
+	if(Objects.isNull(x)){
+		return null;
+	}
+	int cmp = k.compareTo(x.key);
+	if(cmp < 0){
+		return get(x.left,k);
+	}else if(cmp > 0){
+		return get(x.right,k);
+	}else{
+		return x;
+	}
+}
+\end{lstlisting}
+\pagebreak
+\section{Minimum \& Maximum in BST}
+The left most element which doesn't have any left child of its own is the minimum and the right most element which doesn't have right child of its own is the maximum in the given \emph{Binary Search Tree}, as per the \emph{Binary Search Tree Property}
+
+\begin{lstlisting}[caption={Min \& Max Operation}]
+private Node root;
+
+public Key min(){
+	if(Objects.isNull(root)){
+		return null;
+	}
+	return min(root).key;
+}
+
+private Node min(Node x){
+	if(Objects.isNull(x)){
+		return null;
+	}
+	if(Objects.isNull(x.left)){
+		return x;
+	}else{
+		return min(x.left);
+	}
+}
+
+public Key max(){
+	if(Objects.isNull(root)){
+		return null;
+	}
+	return max(root).key;
+}
+
+private Node max(Node x){
+	if(Objects.isNull(x)){
+		return null;
+	}
+	if(Objects.isNull(x.right)){
+		return x;
+	}else{
+		return max(x.right);
+	}
+}
+\end{lstlisting}
+\pagebreak
+\section{Predecessor \& Successor in BST}
+Predecessor of any given node is the max element in its left sub tree and similarly successor of any given node is the min element in its right sub tree.
+
+\begin{lstlisting}[caption={Predecessor \& Successor Operation}]
+private Node root;
+
+public Key predecessor(Key key){
+	Node node = get(root,key);
+	if(Objects.nonNull(node)){
+		Node predecessor = predecessor(node);
+		if(Objects.nonNull(predecessor)){
+			return predecessor.key;
+		}
+	}
+	return null;
+}
+
+private Node predecessor(Node x){
+	if(Objects.isNull(x)){
+		return null;
+	}
+	return max(x.left);
+}
+
+public Key successor(Key key){
+	Node node = get(root,key);
+	if(Objects.nonNull(node)){
+		Node successor = successor(node);
+		if(Objects.nonNull(successor)){
+			return successor.key;
+		}
+	}
+	return null;
+}
+
+private Node successor(Node x){
+	if(Objects.isNull(x)){
+		return null;
+	}
+	return min(x.right);
+}	
+\end{lstlisting}
+\pagebreak
+\section{Deleting Min \& Max elements in BST}
+The left most element is the minimum and the right most element is the maximum in the given \emph{Binary Search Tree}, as per the \emph{Binary Search Tree Property}
+
+\begin{lstlisting}[caption={Deleting Min \& Max Operation}]
+private Node root;
+
+public void deleteMin(){
+	root = deleteMin(root);
+}
+
+private Node deleteMin(Node x){
+	if(Objects.isNull(x)){
+		return null;
+	}
+	if(Objects.isNull(x.left)){
+		return x.right;
+	}
+	x.left = deleteMin(x.left);
+	return x;
+}
+
+public void deleteMax(){
+	root = deleteMax(root);
+}
+
+private Node deleteMax(Node x){
+	if(Objects.isNull(x)){
+		return null;
+	}
+	if(Objects.isNull(x.right)){
+		return x.left;
+	}
+	x.right = deleteMax(x.right);
+	return x;
+}
+\end{lstlisting}
+\pagebreak
+\section{Deleting an element in BST}
+Deleting an element from a \emph{Binary Search Tree} is a tricky operation, where in we have to maintain the \emph{Binary Search Tree Property} after deletion by certain adjustments. When we are deleting any given element say $x$ in the BST, Then in that case before deletion we have to find the successor of the element $x$, and assign it a temporary variable say $h$ then point the $x$ left sub tree as $h$  left sub tree. Then delete the successor $h$ from the $x$ right sub tree by calling \textbf{deleteMin} operation on the $x$ right sub tree. And then return the successor element.
+
+\begin{lstlisting}[caption={Delete Operation}]
+private Node root;
+
+public void delete(Key k){
+	if(k!=null){
+		root = delete(root,k);
+	}
+}
+
+private Node delete(Node x,Key k){
+	if(Objects.isNull(x)){
+		return x;
+	}
+	int cmp = k.compareTo(x.key);
+	if(cmp < 0){
+		return delete(x.left,k);
+	}else if(cmp > 0){
+		return delete(x.right,k);
+	}
+	Node succ = successor(x);
+	succ.left = x.left;
+	succ.right = deleteMin(x.right);
+	succ.N = size(succ.left) + size(succ.right);
+	return succ;
+}
+\end{lstlisting}
+\end{document}
