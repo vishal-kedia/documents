@@ -277,4 +277,23 @@ private Node delete(Node x,Key k){
 	return succ;
 }
 \end{lstlisting}
+\section{Binary Search Tree problems}
+\subsection{Lowest Common Ancestor Problem (LCA)}
+\textbf{Problem Statement -} When we go from node $x$ towards the root element we visit all the ancestors of element $x$, similarly if we visit all the ancestors for the another given element $y$, there will be some intersecting node say $p$ which will be ancestor for both $x$ and $y$ at minimum distance from both $x$ and $y$ making it the \emph{Lowest Common Ancestor} of both the elements. This is also the way to find the minimum distance between the two nodes in a given \emph{Binary Search Tree}.
+\\
+\textbf{Discussion -} We know from the \emph{Binary Search Tree Property} that all the elements in the left sub tree are smaller than the root element and similarly all the elements in the right sub tree are bigger than the root elements. So if the element $x$ lies in the one sub tree of $p$ and the element $y$ lies on the other sub tree of $p$ then in that case the $p$ is the \emph{LCA} for the elements $x$ and $y$. If we start from the root element then we know if both elements are on the right sub tree then we have to proceed down in the right sub tree to find the \emph{LCA} and if the both the elements are on the left sub tree then we have to proceed down the left sub tree.
+\subsection{Algorithm to Test BST}
+\textbf{Problem Statement -} You are given a binary tree, device an algorithm to test if the given tree is BST or not.
+\\
+\textbf{Discussion -} We know that in-order traversal of a BST results in a sorted list of the elements, Hence in order to test we will traverse the tree using in-order traversal and see if all the visited elements are in sorted order or not.
+\subsection{BST to DLL (In-Order)}
+\textbf{Problem Statement -} Device an algorithm to convert a given BST in a double linked list with In-Order sequence of the elements.
+\\
+\textbf{Discussion -} To device the above algorithm we have to device two subroutines one to link all the predecessors recursively in the left sub tree and another to link all the successors in the right sub tree recursively.
+\par
+To link predecessor in the left sub tree delete the max element in the left sub tree and assign an interim pointer to it, now assign the given left sub tree as its left child and then proceed recursively on its left sub tree till you reach empty sub tree, don't forget to store the first predecessor element in the in a global pointer otherwise we will have to traverse till the end to reach the last element as we will have to manipulate its pointers to link with the root element finally. In the similar manner we can link all the successor elements in the right sub tree.
+\subsection{BST to DLL (BFS Order)}
+\textbf{Problem Statement -} Device an algorithm to convert a given BST in a double linked list with Breadth First Search Order of the elements.
+\\
+\textbf{Discussion -} For this problem we traverse all the elements in BFS manner using queue, and adjust the pointers while processing all the elements in the queue to form a \emph{Doubly Linked List}.
 \end{document}
