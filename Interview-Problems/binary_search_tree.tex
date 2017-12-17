@@ -67,7 +67,8 @@ public class BST<Key extends Comparable<Key>, Value> {
 }
 \end{lstlisting}
 \pagebreak
-\section{Insert in BST}
+\section{Operations in BST}
+\subsection{Insert in BST}
 When inserting a new \texttt{(key,value)} pair in \emph{Binary Search Tree} rooted at $x$, There can be three possible scenarios possible, one where tree is empty, second where tree is not empty but already contains the key and the third scenario where tree is not empty and doesn't contain the any node with the given key.
 \par
 If the tree is empty then in that case new node with the given key value is returned as root element of the tree. If the Tree is not empty and there is already one node present in the tree with the given key then in that case value of the node in the tree is replaced with new value provided, and if tree is neither empty not contains any node with the provided key then in that case new node is created linked to one of the leaf nodes of in the given tree such that binary search tree property is not violated.
@@ -97,7 +98,7 @@ private Node put(Node x,Key key,Value value){
 }
 \end{lstlisting}
 \pagebreak
-\section{Search in BST}
+\subsection{Search in BST}
 When we search any key in the given \emph{Binary Search Tree}, then there can be only three possibilities, fist the tree is empty, second when the tree is empty but key doesn't exist and third where tree is not empty and key is present in the tree.
 
 \begin{lstlisting}[caption={Search Operation}]
@@ -126,7 +127,7 @@ private Node get(Node x,Key k){
 }
 \end{lstlisting}
 \pagebreak
-\section{Minimum \& Maximum in BST}
+\subsection{Minimum \& Maximum in BST}
 The left most element which doesn't have any left child of its own is the minimum and the right most element which doesn't have right child of its own is the maximum in the given \emph{Binary Search Tree}, as per the \emph{Binary Search Tree Property}
 
 \begin{lstlisting}[caption={Min \& Max Operation}]
@@ -169,7 +170,7 @@ private Node max(Node x){
 }
 \end{lstlisting}
 \pagebreak
-\section{Predecessor \& Successor in BST}
+\subsection{Predecessor \& Successor in BST}
 Predecessor of any given node is the max element in its left sub tree and similarly successor of any given node is the min element in its right sub tree.
 
 \begin{lstlisting}[caption={Predecessor \& Successor Operation}]
@@ -212,7 +213,7 @@ private Node successor(Node x){
 }	
 \end{lstlisting}
 \pagebreak
-\section{Deleting Min \& Max elements in BST}
+\subsection{Deleting Min \& Max elements in BST}
 The left most element is the minimum and the right most element is the maximum in the given \emph{Binary Search Tree}, as per the \emph{Binary Search Tree Property}
 
 \begin{lstlisting}[caption={Deleting Min \& Max Operation}]
@@ -249,7 +250,7 @@ private Node deleteMax(Node x){
 }
 \end{lstlisting}
 \pagebreak
-\section{Deleting an element in BST}
+\subsection{Deleting an element in BST}
 Deleting an element from a \emph{Binary Search Tree} is a tricky operation, where in we have to maintain the \emph{Binary Search Tree Property} after deletion by certain adjustments. When we are deleting any given element say $x$ in the BST, Then in that case before deletion we have to find the successor of the element $x$, and assign it a temporary variable say $h$ then point the $x$ left sub tree as $h$  left sub tree. Then delete the successor $h$ from the $x$ right sub tree by calling \textbf{deleteMin} operation on the $x$ right sub tree. And then return the successor element.
 
 \begin{lstlisting}[caption={Delete Operation}]
@@ -297,7 +298,6 @@ To link predecessor in the left sub tree delete the max element in the left sub 
 \textbf{Problem Statement -} Device an algorithm to convert a given BST in a double linked list with Breadth First Search Order of the elements.
 \\
 \textbf{Discussion -} For this problem we traverse all the elements in BFS manner using queue, and adjust the pointers while processing all the elements in the queue to form a \emph{Doubly Linked List}.
-\section{Sorted DLL to BST}
 \subsection{Sorted DLL to BST}
 \textbf{Problem Statement-} Device an algorithm to convert a sorted doubly linked list to Binary Search Tree.
 \\
