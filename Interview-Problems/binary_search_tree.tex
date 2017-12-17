@@ -1,4 +1,5 @@
 \documentclass[12pt,a4paper,draft]{article}
+\usepackage{tikz}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -296,4 +297,101 @@ To link predecessor in the left sub tree delete the max element in the left sub 
 \textbf{Problem Statement -} Device an algorithm to convert a given BST in a double linked list with Breadth First Search Order of the elements.
 \\
 \textbf{Discussion -} For this problem we traverse all the elements in BFS manner using queue, and adjust the pointers while processing all the elements in the queue to form a \emph{Doubly Linked List}.
+\section{Sorted DLL to BST}
+\subsection{Sorted DLL to BST}
+\textbf{Problem Statement-} Device an algorithm to convert a sorted doubly linked list to Binary Search Tree.
+\\
+\textbf{Discussion -} Since the Doubly Linked List is already sorted, hence if we follow the binary search traversal, over the sorted list and insert the elements as we visit the elements, we can form the balanced BST. The key to the solution is to find the middle element in the least time complexity.
+\section{Binary Tree Questions}
+\subsection{Creating Binary Tree from given In-Order and Pre-Order Sequence of the elements}
+\textbf{Problem Statement -}Device an algorithm to re-create a binary tree from the given In-Order and Pre-Order sequence of the elements of the tree.
+\\
+\textbf{Discussion -}As we know that the in Pre-Order sequence the first element is the root element in the tree, using this information we can divide the In-Order sequence in three parts, first the root element itself, second the left subtree elements and third the right subtree elements. And using the above result we know all the elements present in the left sub tree and the right sub tree and we can derive the pre order sequence of those elements from the given Pre-Order sequence and solve the problem recursively.
+\subsection{Diameter of a Binary Tree}
+\textbf{Problem Statement -}Diameter of a given binary tree is given as the number of nodes on the longest path between the two leave nodes which may or may not pass through the root element. There can be multiple paths with the same node numbers.
+\\
+\textbf{Discussion -}As we know that the height of a binary tree is the longest path between the root node and the leaf node, so in case of the diameter if the longest path between the two nodes passes throught the given node then in that case diameter is the sum of the height of the left and the right sub trees plus $1$. Since we don't know if the longest path passes through the root element of the given tree hence we have to test for all the elements as the root elements for diameter and then choose the one with the longest diameter.
+\subsection{Full Nodes in Binary Tree}
+\textbf{Problem Statement -} Full Node in a binary tree is the node which has non null left and the right sub trees. Device an algorithm to count the no of full nodes in a binary tree.
+\subsection{Half Nodes in Binary Tree}
+\textbf{Problem Statement -} Half Node in a binary tree is the node which has only one child sub tree. Device an algorithm to count the no of all the half nodes in a binary tree.
+\subsection{Height of a Binary Tree}
+\textbf{Problem Statement -} Height of a binary tree is defined as the number of nodes in the longest path between the root of the tree and any of the leaf nodes. Device an algorithm to determine the height of the binary tree.
+\subsection{Print All Ancestors}
+\textbf{Problem Statement -} Device an algorithm to print all the ancestors of the given node in a binary tree.
+\subsection{Print All Leaf Node Paths}
+\textbf{Problem Statement -} Device an algorithm to print all the leaf node paths in the given binary tree.
+\subsection{Size of the Binary Tree}
+\textbf{Problem Statement -} Size of a binary tree is defined as the total no of nodes present in the tree. Device an algorithm to find the size of a given binary tree.
+\subsection{Test for structural identity}
+\textbf{Problem Statement -} Device an algorithm to test if the two given binary trees are structurally identical or not.
+\subsection{Tree Mirror}
+\textbf{Problem Statement -} Device an algorithm to create mirror image of the given binary tree.
+\begin{tikzpicture}
+\draw (0,0) circle [radius=10pt] node(a){1};
+\draw (-1,-1) circle [radius=10pt] node(b){3};
+\draw (1,-1) circle [radius=10pt] node(c){2};
+\draw (0,-2) circle [radius=10pt] node(f){5};
+\draw (2,-2) circle [radius=10pt] node(g){4};
+\draw (a) -- (b);
+\draw (a) -- (c);
+\draw (c) -- (f);
+\draw (c) -- (g);
+\draw [thick,dash dot](5,1) -- (5,-5);
+\draw (10,0) circle [radius=10pt] node(A){1};
+\draw (9,-1) circle [radius=10pt] node(B){2};
+\draw (11,-1) circle [radius=10pt] node(C){3};
+\draw (8,-2) circle [radius=10pt] node(D){4};
+\draw (10,-2) circle [radius=10pt] node(E){5};
+\draw (A) -- (B);
+\draw (A) -- (C);
+\draw (B) -- (D);
+\draw (B) -- (E);
+\end{tikzpicture}
+\subsection{Sum of vertical nodes in Binary Trees}
+\textbf{Problem Statement -}  Device an algorithm to calculate the sum of all the vertical nodes in the given binary tree. In the below example if we see, then nodes are $1$,$5$,$6$ are vertically aligned.
+\\
+\begin{center}
+\begin{tikzpicture}
+\draw [thick,dash dot](-2,1) -- (-2,-5);
+\draw [thick,dash dot](-1,1) -- (-1,-5);
+\draw [thick,dash dot](0,1) -- (0,-5);
+\draw [thick,dash dot](2,1) -- (2,-5);
+\draw [thick,dash dot](3,1) -- (3,-5);
+\draw (0,0) circle [radius=10pt] node(a){1};
+\draw (-1,-1) circle [radius=10pt] node(b){2};
+\draw (2,-1) circle [radius=10pt] node(c){3};
+\draw (0,-4) circle [radius=10pt] node(f){6};
+\draw (3,-2) circle [radius=10pt] node(g){7};
+\draw (-2,-2) circle [radius=10pt] node(d){4};
+\draw (0,-2) circle [radius=10pt] node(e){5};
+\draw (a) -- (b);
+\draw (a) -- (c);
+\draw (b) -- (d);
+\draw (b) -- (e);
+\draw (c) -- (f);
+\draw (c) -- (g);
+\end{tikzpicture}
+\end{center}
+\pagebreak
+\subsection{Level Order Tree Traversal in Spiral Form (ZigZag Traversal)}
+\textbf{Problem Statement -} Traverse the below tree in level order spiral form such that it visits in the order 1,2,3,7,6,5,4.
+\begin{center}
+\begin{tikzpicture}
+\draw (-.5,0) circle [radius=10pt] node(a){1};
+\draw (-2,-1) circle [radius=10pt] node(b){2};
+\draw (1,-1) circle [radius=10pt] node(c){3};
+\draw (0,-2) circle [radius=10pt] node(f){6};
+\draw (2,-2) circle [radius=10pt] node(g){7};
+\draw (-3,-2) circle [radius=10pt] node(d){4};
+\draw (-1,-2) circle [radius=10pt] node(e){5};
+\draw (a) -- (b);
+\draw (a) -- (c);
+\draw (b) -- (d);
+\draw (b) -- (e);
+\draw (c) -- (f);
+\draw (c) -- (g);
+\draw [rounded corners,dash dot](1,0) -- (-4,0) -- (-4,-1) -- (3,-1) -- (3,-2) -- (-4,-2);
+\end{tikzpicture}
+\end{center}
 \end{document}
