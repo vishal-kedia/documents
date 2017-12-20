@@ -394,4 +394,51 @@ To link predecessor in the left sub tree delete the max element in the left sub 
 \draw [rounded corners,dash dot](1,0) -- (-4,0) -- (-4,-1) -- (3,-1) -- (3,-2) -- (-4,-2);
 \end{tikzpicture}
 \end{center}
+\subsection{Closes Leaf in a Binary Tree}
+\textbf{Problem Statement -} You are given a binary tree and a key, find the closest leaf from that tree in the given binary tree, eg. In the below tree $B$ is the closest leaf to key $C$ and the distance is $2$.
+\begin{center}
+\begin{tikzpicture}
+\draw (0,0) circle [radius=10pt] node(a){A};
+\draw (-1,-1) circle [radius=10pt] node(b){B};
+\draw (a) -- (b);
+\draw (1,-1) circle [radius=10pt] node(c){C};
+\draw (a) -- (c);
+\draw (0,-2) circle [radius=10pt] node(e){E};
+\draw (c) -- (e);
+\draw (-1,-3) circle [radius=10pt] node(g){G};
+\draw (e) -- (g);
+\draw (-2,-4) circle [radius=10pt] node(i){I};
+\draw (g) -- (i);
+\draw (0,-4) circle [radius=10pt] node(j){J};
+\draw (g) -- (j);
+\draw (2,-2) circle [radius=10pt] node(f){F};
+\draw (c) -- (f);
+\draw (3,-3) circle [radius=10pt] node(h){H};
+\draw (f) -- (h);
+\draw (2,-4) circle [radius=10pt] node(k){K};
+\draw (h) -- (k);
+\draw[rounded corners,dash dot,ultra thick,<->] (1.5,-0.5) -- (0,1) -- (-1.5,-0.5);
+\end{tikzpicture}
+\end{center}
+\textbf{Discussion -}If we think a little, its easier to observe that closest leaf to the key is either in its descendant or path to the closest key passes via one of its ancestors. So, we will have to search the given key in the binary tree, and keep the track of all the ancestors along with the direction how we reached the key. Once we reach the given key, we shall find the nearest leaf in the sub tree rooted at the given tree and store the distance in a variable say $p$; now we to revisit at least $k-1$ ancestors one by one, and seek the closest leaf in the left sub tree of the ancestor if the search key was in the right sub tree or if the search key was in the left sub tree of the ancestor then we have to find the closest leaf in the right sub tree of the ancestor and store the result in $x$ then the distance of the closest leaf from the search key becomes $y=2+x$ and we keep the $p=min(y,p)$ we will repeat this until $k-1$ ancestors are visited if the number of ancestors are more than $k-1$ or till all the ancestors are visited and in the end return the value of $p$.
+\pagebreak
+\subsection{Equal Tree Partition}
+\textbf{Problem Statement -}If given a binary tree with $n$ nodes, check if by removing any link in the tree we may partition the tree into two trees such that the sum of all the nodes in both the trees are equal.
+\begin{center}
+\begin{tikzpicture}
+\draw (0,0) circle [radius=10pt] node(a){5};
+\draw (-1,-1) circle [radius=10pt] node(b){10};
+\draw (1,-1) circle [radius=10pt] node(c){10};
+\draw (0,-2) circle [radius=10pt] node(d){2};
+\draw (2,-2) circle [radius=10pt] node(e){3};
+\draw (a) -- (b);
+\draw (a) -- (c);
+\draw (c) -- (d);
+\draw (c) -- (e);
+\draw[densely dashed] (0,-1) -- (1,0);
+\end{tikzpicture}
+\end{center}
+\textbf{Discussion -} In this problem we will have to find the sum of all the elements in the tree considering each element in the given binary tree as the root element forming a tree of its own, and store that value in the extra variable in each node for the corresponding tree. Now if we observe, we find that whenever any link is cut in the given tree the parent tree gets broken in two tree, one with the original root element of the main tree and another with the broken link element which doesn't have any ancestor. Since we have stored the sum of all the elements for the given tree in the root node, so once the tree is broken to get the remaining value we have to subtract it with the total sum stored in the root element in the another sub tree that will give the sum of all the elements in the remaining sub tree. We have to perform this operation for all the elements in the given tree and see which two partitions leads to the same sum, and that shall be our required partition.
+\subsection{Longest Consecutive Sequence in Binary Tree}
+\textbf{Problem Statement -}Given a Binary Tree, find the length of the longest path which comprises of nodes with consecutive values in increasing order. Every node is to be considered a path of length $1$.  
 \end{document}
