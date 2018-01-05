@@ -1,0 +1,36 @@
+\documentclass[10pt,a4paper,draft]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[final]{listings}
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\author{Vishal Kedia}
+\usepackage{geometry}
+\geometry{margin=2cm}
+\title{Hash Tables}
+\begin{document}
+\maketitle
+
+If keys are small integer values then we can use arrays, and use the keys as arrays index and save the associated value at that index. In this section we shall consider hashing, an extension of simple methods that handles more complicated types of keys.We reference key-value pairs using arrays by doing arithmetic operations to transform keys into array indices.
+\\
+Such algorithms that uses hashing mainly consists of two separate parts:
+\begin{enumerate}
+\item \emph{Hash Function} - That function which transforms the search key into an array index.
+\item \emph{Collision Resolution} - A process which deal with the situation wherein we have two different keys which hashes to same array index.
+\end{enumerate}
+\par Hashing is a classic example of time-space trade off, if we had no memory limitation then in that case we could have hashing algorithm which always hashes to the distinct array index within $O(1)$ time, however as we are limited by memory hence this can't be practical. On the other hand if we had no time constraint then we could have worked around with the sequential search in an un-ordered array with limited memory. With a good hashing algorithm and collision resolution strategy we can achieve the mid ground with optimized space and time complexity.
+\section{Hash Function}
+If we have an array that can hold $M$ Key-Value pair, then we would need a hash function that can transform any given key into the index in range $[0,M]$.
+\end{document}
