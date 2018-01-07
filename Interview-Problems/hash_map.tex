@@ -32,5 +32,48 @@ Such algorithms that uses hashing mainly consists of two separate parts:
 \end{enumerate}
 \par Hashing is a classic example of time-space trade off, if we had no memory limitation then in that case we could have hashing algorithm which always hashes to the distinct array index within $O(1)$ time, however as we are limited by memory hence this can't be practical. On the other hand if we had no time constraint then we could have worked around with the sequential search in an un-ordered array with limited memory. With a good hashing algorithm and collision resolution strategy we can achieve the mid ground with optimized space and time complexity.
 \section{Hash Function}
-If we have an array that can hold $M$ Key-Value pair, then we would need a hash function that can transform any given key into the index in range $[0,M]$.
+If we have an array that can hold $M$ Key-Value pair, then we would need a hash function that can transform any given key into the index in range $[0,M]$. The most common method of hashing is called \textbf{\emph{Modular Hashing}}: We choose the array size $M$ to be prime and for any positive integer key $k$, compute $p = ( k \bmod{M})$, prime no helps to disperse the keys evenly. If keys are real numbers then we may just multiply it with $M$ and round over the decimal parts to get the index, but this will give no weight to the least significant bits, In order to counter this we can use modular hashing over the binary representation of the key.
+\par What if the key was a String or a date, well in that case also modular hashing can serve the purpose, and the index can be calculated with the help of \emph{Horner's Method}. Java `hashCode()` function returns the 32-bit Integer value, but since our goal is the array index and not the 32-bit Integer, hence we combine hashCode with modular hashing in our implementation to get the array index. 
+
+\begin{lstlisting}[language=Java]
+public int hash(Key x){
+	return (x.hashCode() & 0x7fffffff) % M;
+}
+\end{lstlisting}
+
+This code masks off the sign bit (to turn the 32-bit number into a 31-bit nonnegative integer) and then computes the remainder when dividing by M, as in modular hashing.
+
+In a nutshell there are three primary requirements in implementing a good hash function for a given data type:
+\begin{enumerate}
+\item It should be \emph{consistent}, equal keys must produce the same hash value.
+\item It should be \emph{efficient to compute}.
+\item It should \emph{uniformly distribute the keys}.
+\end{enumerate}
+\section{Collision Resolution}
+When two keys hashes to the same array index, then they are said to \emph{Collide}. There are different strategies to resolve such a collision.
+\subsection{Hashing with separate chaining}
+A straightforward and general approach to collision resolution is to build, for each of the $M$ array index, a linked list of the key-value pair, whose keys hash to that index. Because the items that collide are chained together in a separate linked list hence this method is called \emph{Separate Chaining}.
+\par If the hash function is not uniform and independent, the search and insert cost could be proportional to $N$, which is no better than with sequential search.
+\subsection{Hashing with linear probing (Open Addressing)}
+The simple open addressing method is called \emph{linear probing}, when there is a collision, then we check the next entry in the table. It is characterized by identifying three possible outcomes:
+\begin{enumerate}
+\item Key equal to search key, \emph{search hit}.
+\item Empty position (null key at index position), \emph{search miss}.
+\item Key not equal to search key, try next entry.
+\end{enumerate}
+During linear probing we keep incrementing the index, wrapping back to the beginning of the table if we reach the end, until either finding the search key or an empty table entry. 
+\\
+\\
+\textbf{Delete:} If we delete in this method then just setting the key and value to $null$ may not work, as if other keys which were placed after collision after this entry will become unreachable, so in order to fix that, when we make the key value as $null$, we must make all the after entries $null$ till we reach another $null$ key, and reinsert the same so that it reaches to the new adjusted location.
+\subsection{Performance analysis of separate chaining and linear probing}
+The performance of hashing with \emph{open addressing} and \emph{separate chaining} depends on the load factor of the hash table $\alpha = N/M$, but we interpret it differently in both the cases. For separate chaining, $\alpha$ is the average number of keys per list and is generally larger than $1$; for linear probing it is the percentage of table entries that are occupied and hence can't be greater than $1$ (completely full table), otherwise the search miss will go into infinite loop. Indeed we use array re-sizing to guarantee that the load factor is between $[1/8,1/2]$.
+\\
+\\
+\textbf{Clustering:} The average cost of linear probing depends on the way in which entries clump together into contiguous groups of occupied table entries, called \emph{clusters}, when they are inserted. Hence we can expect a search to require a large number of probes in a nearly full table. Short clusters are certainly a requirement for efficient performance and can be achieved if we can have smaller load factor, this is usually achieved with \emph{array re-sizing}.
+\section{Problems}
+\subsection{LRU Cache}
+\textbf{Problem Statement:} Create a data structure that supports the following operations: access and remove. The access operation inserts the item onto the data structure if it's not already present. The remove operation deletes and returns the item that was least recently accessed.
+\\
+\\
+\textbf{Discussion:} Maintain the items in order of access in a doubly linked list, along with pointers to the first and last nodes. Use a symbol table with keys $=$ items, values $=$ location in linked list. When you access an element, delete it from the linked list and reinsert it at the beginning. When you remove an element, delete it from the end and remove it from the symbol table.
 \end{document}
