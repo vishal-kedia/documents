@@ -1,1 +1,2 @@
 https://www.ctl.io/developers/blog/post/gracefully-stopping-docker-containers/
+https://www.math.wisc.edu/~keisler/calc.html (calculus book)
