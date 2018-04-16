@@ -1,2 +1,3 @@
 https://www.ctl.io/developers/blog/post/gracefully-stopping-docker-containers/
 https://www.math.wisc.edu/~keisler/calc.html (calculus book)
+http://techslides.com/top-10-free-templates-for-api-documenation (api documentation)
