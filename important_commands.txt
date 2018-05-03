@@ -45,3 +45,7 @@ How to join lines in a file
 ---------------------------
 split -l 100 tickets_with_delay.dat frxi_
 paste -s -d"," frxi_* | awk '{print "select id,created_at,(updated_at-created_at) from table where id in ("$0");"}'
+
+Vim Commands
+-----------------
+:%!python -m json.tool (use this command to format json in vim)
