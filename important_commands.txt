@@ -37,15 +37,6 @@ How to purge the local repo:
 ---------------------------
 mvn dependency:purge-local-repository
 
-VIM commands
----------------------------
-How to fold json in vim:
-:set filetype=json
-:syntax on
-:set fdm=syntax
-:h fold-commands
-zo - open and zc - close
-
 GIT
 ----------------------
 git mergetool -t opendiff
@@ -58,3 +49,11 @@ paste -s -d"," frxi_* | awk '{print "select id,created_at,(updated_at-created_at
 Vim Commands
 -----------------
 :%!python -m json.tool (use this command to format json in vim)
+
+VIM commands: How to fold json
+---------------------------
+:set filetype=json
+:syntax on
+:set fdm=syntax
+:h fold-commands
+zo - open and zc - close
