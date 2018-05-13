@@ -37,6 +37,15 @@ How to purge the local repo:
 ---------------------------
 mvn dependency:purge-local-repository
 
+VIM commands
+---------------------------
+How to fold json in vim:
+:set filetype=json
+:syntax on
+:set fdm=syntax
+:h fold-commands
+zo - open and zc - close
+
 GIT
 ----------------------
 git mergetool -t opendiff
