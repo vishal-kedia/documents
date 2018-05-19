@@ -5,6 +5,11 @@ find . - name pom.xml -exec sed -n "/text1/,/text2/p" {} \; (print text between 
 perl -p -i -e 's/original_text/text_to_replace_with/g' `find . -name pom.xml` (replace text in all the files)
 find -name "*.jar" | xargs grep <file name> (find files in a collection of jars)
 
+zsh: (to rename subfolders with given specific name)
+----------------
+autoload zmv
+zmv -QW '**/olacabs(/)' '**/test'
+
 
 How to disk and directory sizes
 ------------------------------
