@@ -30,6 +30,11 @@ awk 'NF == 6 {print $0}' <filename> (print line containing exactly 6 character)
 awk '{$2="TWO";print}' <filename> (replaces 2nd field in every line with TWO)
 awk -F"|" -v sq="'" '{print "("sq$2sq")"}' <filename> (how to delcare single quote as variable and use for printing)
 
+AWK: projectSystemField -> PROJECT_SYSTEM_FIELD
+---------------
+gawk '{b = gensub(/([a-z])([A-Z])/,"\\1_\\2","g",toupper( substr( $1, 1, 1 ) ) substr( $1, 2 )); print toupper(b)}'
+
+
 Regex Greediness:
 ---------------
 <.+> matches <i> italic text </i>
